@@ -1,19 +1,17 @@
-/**
- * 3. 브러쉬 크기 지정
- * 4. fill 기능
- * 5. clear 기능
- * 6. opacity 기능
- */
-
 /* variables  */
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const draw = document.getElementById("jsDraw");
+
+// Color
 const colors = document.getElementsByClassName("jsColor");
 const selectColor = document.getElementById("jsSelectColor");
 const randomColor = document.getElementById("jsRandom");
 const userColor = document.getElementById("jsUserColor");
+
+// Mode
 const brushRange = document.getElementById("jsBrush");
+const fill = document.getElementById("jsFill");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -35,6 +33,7 @@ ctx.lineJoin = "round";
 /* mode condition */
 let drawing = false;
 let randoming = false;
+let filling = false;
 
 /* Start drawing */
 function startDrawing() {
@@ -75,7 +74,7 @@ function handleColorClick(event) {
   randoming = false;
   const color = event.target.style.backgroundColor;
 
-  // Change Brush color
+  // Change color
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   selectColor.style.backgroundColor = color;
@@ -91,7 +90,7 @@ function handleUserColor(event) {
   randoming = false;
   const color = event.target.value;
 
-  // Change Brush color
+  // Change color
   ctx.strokeStyle = color;
   ctx.fillStyle = color;
   selectColor.style.backgroundColor = color;
@@ -103,11 +102,32 @@ function handleBrushRange(event) {
   ctx.lineWidth = size;
 }
 
+/* Mode Draw */
+function handleDrawClick() {
+  drawing = true;
+  filling = false;
+}
+
+/* Mode Fill */
+function handleFillClick() {
+  drawing = false;
+  filling = true;
+}
+
+function handleFilling() {
+  if (filling) {
+    ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  }
+}
+
+/* Canvas Event */
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startDrawing);
   canvas.addEventListener("mouseup", stopDrawing);
   canvas.addEventListener("mouseleave", stopDrawing);
+
+  canvas.addEventListener("click", handleFilling);
 }
 
 /* Palette color */
@@ -127,6 +147,15 @@ if (userColor) {
 
 /* Change Brush Range */
 if (brushRange) {
-  console.log(brushRange);
   brushRange.addEventListener("input", handleBrushRange);
+}
+
+/* Mode Draw */
+if (draw) {
+  draw.addEventListener("click", handleDrawClick);
+}
+
+/* Mode Fill */
+if (fill) {
+  fill.addEventListener("click", handleFillClick);
 }
