@@ -87,3 +87,50 @@ body {
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
   cursor: pointer;
 }
+
+.controls__colors .controls_color:active {
+  transform: scale(0.95);
+}
+
+/* random */
+.controls_color.random {
+  background: linear-gradient(
+    to bottom right,
+    #2c2c2c,
+    #ff3b30,
+    #ff9500,
+    #ffcc00,
+    #4cd963,
+    #5ac8fa,
+    #0579ff,
+    #5856d6,
+    white
+  );
+}
+
+/* User pick  */
+.controls_color.user_pick {
+  overflow: hidden;
+}
+
+.user_pick__container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.user_pick input[type="color"] {
+  width: 200%;
+  height: 200%;
+  border: 0;
+  padding: 0;
+  transform: translate(-25%, -25%);
+}
+
+.user_pick__title {
+  font-size: 14px;
+  color: #555;
+  font-weight: 600;
+  margin-top: 8px;
+}
