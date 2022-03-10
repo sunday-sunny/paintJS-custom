@@ -12,6 +12,7 @@ const userColor = document.getElementById("jsUserColor");
 // Mode
 const brushRange = document.getElementById("jsBrush");
 const fill = document.getElementById("jsFill");
+const clear = document.getElementById("jsClear");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -37,7 +38,7 @@ let filling = false;
 
 /* Start drawing */
 function startDrawing() {
-  drawing = true;
+  if (!filling) drawing = true;
 
   if (randoming) {
     // const color = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
@@ -120,6 +121,13 @@ function handleFilling() {
   }
 }
 
+/* Mode Clear */
+function handleClearClick() {
+  ctx.clearRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+}
+
 /* Canvas Event */
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
@@ -158,4 +166,9 @@ if (draw) {
 /* Mode Fill */
 if (fill) {
   fill.addEventListener("click", handleFillClick);
+}
+
+/* Mode Clear */
+if (clear) {
+  clear.addEventListener("click", handleClearClick);
 }
