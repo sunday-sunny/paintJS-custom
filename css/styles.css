@@ -1,0 +1,89 @@
+@import "reset.css";
+
+body {
+  background-color: #f6f9fc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
+    Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0px;
+}
+
+.canvas {
+  background-color: white;
+  width: 700px;
+  height: 700px;
+  border-radius: 15px;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.controls {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* controls__select */
+.controls__select {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.controls__select .controls__select-condition {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-right: 40px;
+}
+
+.controls__select-condition > div {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+.select-condition__title {
+  width: 70px;
+  color: #555;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+/* Mode BTN  */
+.controls__btns {
+  margin-bottom: 40px;
+}
+
+.controls__btns button {
+  all: unset;
+  cursor: pointer;
+  width: 80px;
+  background-color: white;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 5px;
+  color: #555;
+  font-weight: 700;
+  font-size: 14px;
+  margin: 0 3px 0 3px;
+}
+
+.controls__btns button:active {
+  transform: scale(0.95);
+}
+
+/* Color Box */
+.controls__colors {
+  display: flex;
+}
+
+.controls_color {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+}
