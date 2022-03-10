@@ -1,10 +1,8 @@
 /**
- * 1. Draw 기능
- * 2. 색 선택
  * 3. 브러쉬 크기 지정
  * 4. fill 기능
  * 5. clear 기능
- * 6.
+ * 6. opacity 기능
  */
 
 /* variables  */
@@ -15,6 +13,7 @@ const colors = document.getElementsByClassName("jsColor");
 const selectColor = document.getElementById("jsSelectColor");
 const randomColor = document.getElementById("jsRandom");
 const userColor = document.getElementById("jsUserColor");
+const brushRange = document.getElementById("jsBrush");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -98,6 +97,12 @@ function handleUserColor(event) {
   selectColor.style.backgroundColor = color;
 }
 
+/* Change Brush Range */
+function handleBrushRange(event) {
+  const size = event.target.value;
+  ctx.lineWidth = size;
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startDrawing);
@@ -110,11 +115,6 @@ Array.from(colors).forEach((color) =>
   color.addEventListener("click", handleColorClick)
 );
 
-/* Draw */
-// if (draw) {
-//   draw.addEventListener("click", handleDrawing);
-// }
-
 /* Random color */
 if (randomColor) {
   randomColor.addEventListener("click", handleRandomColor);
@@ -123,4 +123,10 @@ if (randomColor) {
 /* User pick color */
 if (userColor) {
   userColor.addEventListener("change", handleUserColor);
+}
+
+/* Change Brush Range */
+if (brushRange) {
+  console.log(brushRange);
+  brushRange.addEventListener("input", handleBrushRange);
 }
