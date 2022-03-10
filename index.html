@@ -47,7 +47,8 @@
         <!-- Pick color -->
         <div
           class="controls__select-color controls_color"
-          style="background-color: lightpink"
+          id="jsSelectColor"
+          style="background-color: #2c2c2c"
         ></div>
       </div>
 
@@ -100,12 +101,12 @@
         ></div>
 
         <!-- Random Color  -->
-        <div class="controls_color jsColor random"></div>
+        <div class="controls_color random" id="jsRandom"></div>
 
         <!-- User pick -->
         <div class="user_pick__container">
           <div class="controls_color jsColor user_pick">
-            <input type="color" />
+            <input type="color" id="jsUserColor" />
           </div>
           <div class="user_pick__title">Pick!</div>
         </div>

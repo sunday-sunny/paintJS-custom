@@ -11,6 +11,10 @@
 const canvas = document.getElementById("jsCanvas");
 const ctx = canvas.getContext("2d");
 const draw = document.getElementById("jsDraw");
+const colors = document.getElementsByClassName("jsColor");
+const selectColor = document.getElementById("jsSelectColor");
+const randomColor = document.getElementById("jsRandom");
+const userColor = document.getElementById("jsUserColor");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -31,15 +35,29 @@ ctx.lineJoin = "round";
 
 /* mode condition */
 let drawing = false;
+let randoming = false;
 
+/* Start drawing */
 function startDrawing() {
   drawing = true;
+
+  if (randoming) {
+    // const color = `rgb(${Math.floor(Math.random() * 255)},${Math.floor(
+    //   Math.random() * 255
+    // )},${Math.floor(Math.random() * 255)})`;
+    const color = `#${Math.round(Math.random() * 0xffffff).toString(16)}`;
+    ctx.strokeStyle = color;
+    ctx.fillStyle = color;
+    selectColor.style.backgroundColor = color;
+  }
 }
 
+/* Stop drawing */
 function stopDrawing() {
   drawing = false;
 }
 
+/* Drawing */
 function onMouseMove(event) {
   const x = event.offsetX;
   const y = event.offsetY;
@@ -53,6 +71,33 @@ function onMouseMove(event) {
   }
 }
 
+/* Click Palette color */
+function handleColorClick(event) {
+  randoming = false;
+  const color = event.target.style.backgroundColor;
+
+  // Change Brush color
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  selectColor.style.backgroundColor = color;
+}
+
+/* Click Random color */
+function handleRandomColor() {
+  randoming = true;
+}
+
+/* Click User pick color */
+function handleUserColor(event) {
+  randoming = false;
+  const color = event.target.value;
+
+  // Change Brush color
+  ctx.strokeStyle = color;
+  ctx.fillStyle = color;
+  selectColor.style.backgroundColor = color;
+}
+
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startDrawing);
@@ -60,7 +105,22 @@ if (canvas) {
   canvas.addEventListener("mouseleave", stopDrawing);
 }
 
+/* Palette color */
+Array.from(colors).forEach((color) =>
+  color.addEventListener("click", handleColorClick)
+);
+
 /* Draw */
 // if (draw) {
 //   draw.addEventListener("click", handleDrawing);
 // }
+
+/* Random color */
+if (randomColor) {
+  randomColor.addEventListener("click", handleRandomColor);
+}
+
+/* User pick color */
+if (userColor) {
+  userColor.addEventListener("change", handleUserColor);
+}
