@@ -13,6 +13,7 @@ const userColor = document.getElementById("jsUserColor");
 const brushRange = document.getElementById("jsBrush");
 const fill = document.getElementById("jsFill");
 const clear = document.getElementById("jsClear");
+const save = document.getElementById("jsSave");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -128,6 +129,19 @@ function handleClearClick() {
   ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
 }
 
+/* Mode Save */
+function handleContextMenu(event) {
+  event.preventDefault();
+}
+
+function handleSaveClick(event) {
+  const image = canvas.toDataURL();
+  const link = document.createElement("a");
+  link.href = image;
+  link.download = "yourDrawing";
+  link.click();
+}
+
 /* Canvas Event */
 if (canvas) {
   canvas.addEventListener("mousemove", onMouseMove);
@@ -136,6 +150,7 @@ if (canvas) {
   canvas.addEventListener("mouseleave", stopDrawing);
 
   canvas.addEventListener("click", handleFilling);
+  canvas.addEventListener("contextmenu", handleContextMenu);
 }
 
 /* Palette color */
@@ -171,4 +186,9 @@ if (fill) {
 /* Mode Clear */
 if (clear) {
   clear.addEventListener("click", handleClearClick);
+}
+
+/* Mode Save */
+if (save) {
+  save.addEventListener("click", handleSaveClick);
 }
