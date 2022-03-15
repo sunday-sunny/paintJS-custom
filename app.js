@@ -144,12 +144,16 @@ function handleSaveClick(event) {
 
 /* Canvas Event */
 if (canvas) {
+  // Draw event
   canvas.addEventListener("mousemove", onMouseMove);
   canvas.addEventListener("mousedown", startDrawing);
   canvas.addEventListener("mouseup", stopDrawing);
   canvas.addEventListener("mouseleave", stopDrawing);
 
+  // Fill event
   canvas.addEventListener("click", handleFilling);
+
+  // Save event
   canvas.addEventListener("contextmenu", handleContextMenu);
 }
 
