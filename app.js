@@ -14,6 +14,7 @@ const brushRange = document.getElementById("jsBrush");
 const fill = document.getElementById("jsFill");
 const clear = document.getElementById("jsClear");
 const save = document.getElementById("jsSave");
+const erase = document.getElementById("jsErase");
 
 /* const variables */
 const INITIAL_COLOR = "#2c2c2c";
@@ -36,6 +37,8 @@ ctx.lineJoin = "round";
 let drawing = false;
 let randoming = false;
 let filling = false;
+let erasing = false;
+draw.classList.add("selected");
 
 /* Start drawing */
 function startDrawing() {
@@ -49,6 +52,11 @@ function startDrawing() {
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
     selectColor.style.backgroundColor = color;
+  }
+
+  if (erasing) {
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "white";
   }
 }
 
@@ -73,6 +81,11 @@ function onMouseMove(event) {
 
 /* Click Palette color */
 function handleColorClick(event) {
+  if (erasing) {
+    erasing = false;
+    handleModeCleaer(draw);
+  }
+
   randoming = false;
   const color = event.target.style.backgroundColor;
 
@@ -84,12 +97,17 @@ function handleColorClick(event) {
 
 /* Click Random color */
 function handleRandomColor() {
+  if (erasing) {
+    erasing = false;
+    handleModeCleaer(draw);
+  }
   randoming = true;
 }
 
 /* Click User pick color */
 function handleUserColor(event) {
   randoming = false;
+  erasing = false;
   const color = event.target.value;
 
   // Change color
@@ -106,19 +124,39 @@ function handleBrushRange(event) {
 
 /* Mode Draw */
 function handleDrawClick() {
+  handleModeCleaer(draw);
   drawing = true;
   filling = false;
+  erasing = false;
 }
 
 /* Mode Fill */
 function handleFillClick() {
+  handleModeCleaer(fill);
   drawing = false;
   filling = true;
+  erasing = false;
 }
 
 function handleFilling() {
   if (filling) {
     ctx.fillRect(0, 0, CANVAS_SIZE, CANVAS_SIZE);
+  }
+}
+
+/* Mode Erase */
+function handleEraseClick() {
+  handleModeCleaer(erase);
+  filling = false;
+  randoming = false;
+  erasing = true;
+  selectColor.style.backgroundColor = "white";
+}
+
+function handleErasing() {
+  if (erasing) {
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "white";
   }
 }
 
@@ -140,6 +178,22 @@ function handleSaveClick(event) {
   link.href = image;
   link.download = "yourDrawing";
   link.click();
+}
+
+/* Mode Setting */
+function handleModeCleaer(mode) {
+  mode.classList.add("selected");
+
+  if (mode === draw) {
+    fill.classList.remove("selected");
+    erase.classList.remove("selected");
+  } else if (mode === fill) {
+    draw.classList.remove("selected");
+    erase.classList.remove("selected");
+  } else if (mode === erase) {
+    draw.classList.remove("selected");
+    fill.classList.remove("selected");
+  }
 }
 
 /* Canvas Event */
@@ -185,6 +239,11 @@ if (draw) {
 /* Mode Fill */
 if (fill) {
   fill.addEventListener("click", handleFillClick);
+}
+
+/* Mode erase */
+if (erase) {
+  erase.addEventListener("click", handleEraseClick);
 }
 
 /* Mode Clear */
