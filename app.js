@@ -39,6 +39,7 @@ let randoming = false;
 let filling = false;
 let erasing = false;
 draw.classList.add("selected");
+canvas.classList.add("curser_draw");
 
 /* Start drawing */
 function startDrawing() {
@@ -84,6 +85,7 @@ function handleColorClick(event) {
   if (erasing) {
     erasing = false;
     handleModeCleaer(draw);
+    handleCurser(draw);
   }
 
   randoming = false;
@@ -100,6 +102,7 @@ function handleRandomColor() {
   if (erasing) {
     erasing = false;
     handleModeCleaer(draw);
+    handleCurser(draw);
   }
   randoming = true;
 }
@@ -125,6 +128,7 @@ function handleBrushRange(event) {
 /* Mode Draw */
 function handleDrawClick() {
   handleModeCleaer(draw);
+  handleCurser(draw);
   drawing = true;
   filling = false;
   erasing = false;
@@ -133,6 +137,7 @@ function handleDrawClick() {
 /* Mode Fill */
 function handleFillClick() {
   handleModeCleaer(fill);
+  handleCurser(fill);
   drawing = false;
   filling = true;
   erasing = false;
@@ -147,6 +152,7 @@ function handleFilling() {
 /* Mode Erase */
 function handleEraseClick() {
   handleModeCleaer(erase);
+  handleCurser(erase);
   filling = false;
   randoming = false;
   erasing = true;
@@ -193,6 +199,23 @@ function handleModeCleaer(mode) {
   } else if (mode === erase) {
     draw.classList.remove("selected");
     fill.classList.remove("selected");
+  }
+}
+
+/* Handle Curser */
+function handleCurser(mode) {
+  const cuserMode = mode.innerHTML.toLowerCase();
+  canvas.classList.add(`curser_${cuserMode}`);
+
+  if (cuserMode === "draw") {
+    canvas.classList.remove("curser_fill");
+    canvas.classList.remove("curser_erase");
+  } else if (cuserMode === "fill") {
+    canvas.classList.remove("curser_draw");
+    canvas.classList.remove("curser_erase");
+  } else if (cuserMode === "erase") {
+    canvas.classList.remove("curser_draw");
+    canvas.classList.remove("curser_fill");
   }
 }
 
